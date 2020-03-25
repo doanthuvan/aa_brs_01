@@ -12,7 +12,7 @@
                     <div class="account-area text-right">
                         <ul>
                             <li><a href="{{route('myAcount') }}">Tài khoản</a></li>
-                            <li><a href="#">Đăng xuất</a></li>
+                            <li><a href="{{ action('Auth\LogoutController@getLogout') }}">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
