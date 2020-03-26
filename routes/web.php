@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'User\HomeController@index')->name('home');
+//login
+Route::get('users/login', 'Auth\LoginController@getLogin')->name('getlogin');
+Route::post('users/login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@postLogin'])->name('postlogin');
+//đăng kí
+Route::get('users/register', 'Auth\RegisterController@showRegistrationForm')->name('getRegister');
+Route::post('users/register', 'Auth\RegisterController@register')->name('postRegister');
+// Đăng xuất
+Route::get('logout','Auth\LogoutController@getLogout')->name('logout');
