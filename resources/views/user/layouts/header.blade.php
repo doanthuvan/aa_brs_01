@@ -42,7 +42,7 @@
                         <nav>
                             <ul>
                             <li class="active"><a href="{{route('home')}}">Trang chủ<i class="fa fa-angle-down"></i></a> </li>
-                                <li><a href="#">Sách<i class="fa fa-angle-down"></i></a> </li>
+                                <li><a href="{{route('book')}}">Sách<i class="fa fa-angle-down"></i></a> </li>
                             <li><a href="#">Đề xuất sách mới<i class="fa fa-angle-down"></i></a> </li>
                                 <li><a href="#">Thành viên<i class="fa fa-angle-down"></i></a> </li>
                                 

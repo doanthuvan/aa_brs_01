@@ -24,3 +24,7 @@ Route::post('users/register', 'Auth\RegisterController@register')->name('postReg
 Route::get('logout','Auth\LogoutController@getLogout')->name('logout');
 
 Route::get('book-detail/{id}', 'User\BookDetailController@index')->name('book-detail');
+Route::get('book/', 'User\BookController@index')->name('book');
+Route::get('bookofPublisher/{id}', 'User\BookController@bookOfPublisher')->name('bookofPublisher');
+Route::get('bookofcategory/{id}', 'User\BookController@bookOfCategory')->name('bookofcategory');
+Route::get('search', 'User\BookController@search')->name('searchbook');
