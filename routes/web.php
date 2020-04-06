@@ -34,3 +34,13 @@ Route::get('favorite-book/{id}', 'User\UserController@favoritebook')->name('favo
 Route::get('book-read/{id}', 'User\UserController@bookread')->name('book-read');
 Route::get('book-reading/{id}', 'User\UserController@bookreading')->name('book-reading');
 Route::post('like', 'User\UserController@toggleLike')->name('likeIt');
+//member
+Route::get('member', 'User\UserController@member')->name('member');
+Route::get('mypage', 'User\UserController@mypage')->name('mypage');
+Route::get('personal/{id}', 'User\UserController@personal')->name('person');
+Route::get('maganereview', 'User\UserController@maganereview')->name('maganereview');
+Route::get('followers/{id}', 'User\UserController@followers')->name('followers');
+Route::get('manage_follow', 'User\UserController@managefollow')->name('managefollow');
+Route::get('unfollow/{id}', 'User\UserController@unfollow')->name('unfollow');
+Route::get('showreview/{id}', 'User\UserController@showreview')->name('showreview');
+Route::get('follow/{id}', 'User\UserController@follow')->name('follow');
