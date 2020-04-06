@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
-{
+{   use LikableTrait;
     protected $table = 'reviews';
     protected $fillable = [
         'review_content',

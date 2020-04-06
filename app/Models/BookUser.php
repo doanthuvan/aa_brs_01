@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class BookUser extends Model
@@ -21,5 +21,11 @@ class BookUser extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function scopebookuser($query, $id_book)
+    {
+        return $query->where([
+            ['book_id', '=', $id_book],
+            ['user_id', '=', Auth::user()->id]]);
     }
 }
