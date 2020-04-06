@@ -44,3 +44,17 @@ Route::get('manage_follow', 'User\UserController@managefollow')->name('managefol
 Route::get('unfollow/{id}', 'User\UserController@unfollow')->name('unfollow');
 Route::get('showreview/{id}', 'User\UserController@showreview')->name('showreview');
 Route::get('follow/{id}', 'User\UserController@follow')->name('follow');
+//review
+Route::get('create-review/{id}', 'User\BookController@createReview')->name('create-review');
+Route::post('create-review/{id}', 'User\BookController@storeReview')->name('store-review');
+Route::get('editreview/{id}', 'User\BookController@editReview')->name('editReview');
+Route::post('editreview/{id}', 'User\BookController@updateReview');
+Route::post('reviewdelete/{id}', 'User\BookController@destroyReview');
+Route::get('show-review/{reviewid}', 'User\BookController@showReview')->name('show-review');
+//comment của review
+Route::post('createcomment', 'User\BookController@createcomment')->name('create-comment');
+Route::get('createcomment', 'User\BookController@createcomment')->name('create-comment');
+Route::post('comment_review/{reviewid}', 'User\BookController@showComment')->name('comment_review');
+Route::get('recommend-book', 'User\UserController@recommend')->name('recommend-book');
+Route::post('recommend-book', 'User\UserController@sentrecommend')->name('postrecommend-book');
+

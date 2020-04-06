@@ -99,4 +99,21 @@ class UserController extends Controller
       $user = User::find(Auth::user()->id);
       return view('user.members.managefollower',compact('user'));
   }
+  public function maganereview(){
+    $reviews = Review::with('book')->get();
+    return view('user.reviews.manage',compact('reviews'));
+  }
+  public function recommend(){
+    return view('user.book.recommend-book');
+}
+  public function sentrecommend(Request $request ){
+    $requestNewbook = new RequestNewbook();    
+    $requestNewbook->book_name = $request->get('name');
+    $requestNewbook->author = $request->get('author');
+    $requestNewbook->request_content = $request->get('content');
+    $requestNewbook->user_id = Auth::user()->id;
+    $requestNewbook->status = 0;
+    $requestNewbook->save();
+    return redirect('/recommend-book')->with('status', 'Bạn đã gửi yêu cầu thành công');
+  }
 }
