@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Rate;
+use App\Models\Review;
+use App\Models\BookUser;
+use App\Http\Requests\VoteRequest;
 class BookController extends Controller
 {
      public function index()
@@ -39,7 +43,35 @@ class BookController extends Controller
     public function bookOfCategory(Request $request,$id){
         $books = Book::with('rates', 'publisher')->bookOfCategory($id);
         return view('user.book.all-book', compact('books'));
+    }
+    public function bookdetail($id)
+    { 
+        try {
+            $book = Book::with('publisher', 'rates')->findOrFail($id);
+        }catch (ModelNotFoundException $exception) {
+                return view('errors.notfound');
+         }
+        if (Auth::check()) {
+            $userRateBook = Rate::UserRateBook($id)->first();
+            $book_user = BookUser::bookuser($id)->first();
+        }else {
+            $userRateBook = "";
+            $book_user = "";
+        }  
+        $reviews = Review::with('user', 'comments', 'book')
+                ->where('book_id', $id)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        return view('user.book.book', compact('book', 'userRateBook', 'reviews','book_user'));
         }
-       
+    public function voteBook(VoteRequest $request, $id)
+    {
+        $rate = new Rate;
+        $rate->book_id = $id;
+        $rate->user_id = Auth::user()->id;
+        $rate->stars = count($request->get('star'));
+        $rate->save();
+        return redirect()->back();
+    }
 }
 

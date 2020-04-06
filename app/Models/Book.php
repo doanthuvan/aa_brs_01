@@ -22,7 +22,7 @@ class Book extends Model
     {
         return $query->where('title', 'LIKE', '%' . $search . '%');
     }
-    public function scopebookOfPubliser($query, $id)
+    public function scopebookOfPublisher($query, $id)
     {
         return $query->where('publisher_id',$id)->paginate(16);
     }
@@ -36,7 +36,7 @@ class Book extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'book_user','book_id','user_id')->withPivot('favorite','read','reading')->withTimestamps();
     }
 
     public function reviews()

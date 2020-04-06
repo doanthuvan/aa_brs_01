@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Auth;
 class Rate extends Model
 {
     protected $table = 'rates';
@@ -21,5 +21,11 @@ class Rate extends Model
     public function book()
     {
         return $this->belongsTo(Book::class, 'book_id');
+    }
+    public function scopeuserRateBook($query, $id_book)
+    {
+        return $query->where([
+            ['book_id', '=', $id_book],
+            ['user_id', '=', Auth::user()->id]]);
     }
 }
