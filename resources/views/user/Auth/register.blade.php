@@ -1,7 +1,14 @@
-@extends('user.master')
-@section('name', 'Register')
-
-@section('content')
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
     <div class="container">
         <div class="card mt-5">
             <div class="card-header ">
@@ -18,7 +25,7 @@
                     <div class="form-group">
                         <label for="name" class="col-lg-12 control-label">Tên</label>
                         <div class="col-lg-12">
-                            <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control" id="name" placeholder="Name" name="họ và tên">
                         </div>
                     </div>
                     <div class="form-group">
@@ -31,7 +38,7 @@
                     <div class="form-group">
                         <label for="email" class="col-lg-12 control-label">Email</label>
                         <div class="col-lg-12">
-                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old('email') }}">
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" >
                         </div>
                     </div>
 
@@ -59,4 +66,5 @@
             </div>
         </div>
     </div>
-@endsection
+</body>
+</html>

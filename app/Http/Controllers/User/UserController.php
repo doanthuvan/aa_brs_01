@@ -60,15 +60,43 @@ class UserController extends Controller
               'read' => '1' ]); 
     return redirect()->back();
   }
-public function toggleLike(Request $request){
-  $reviewtId=$request->get('reviewId');
-  $review=Review::find($reviewtId);
-  if(!$review->isLiked()){
-    $review->likeIt();
-    return response()->json(['status'=>'success','message'=>'liked']);
-  } else{
-    $review->unlikeIt();
-    return response()->json(['status'=>'success','message'=>'unliked']);
-   }
+  public function toggleLike(Request $request){
+    $reviewtId=$request->get('reviewId');
+    $review=Review::find($reviewtId);
+    if(!$review->isLiked()){
+      $review->likeIt();
+      return response()->json(['status'=>'success','message'=>'liked']);
+    } else{
+      $review->unlikeIt();
+      return response()->json(['status'=>'success','message'=>'unliked']);
+    }
+    }
+  public function member(){           
+    $users = DB::table('users')->paginate(16);
+    return view('user.members.member', compact('users'));
+  }
+  public function personal(Request $request,$id){ 
+    $user = User::find($id);
+    $isfollower = UserFollow::isfollower($id)->first();
+    return view('user.members.personalpage',compact('user','isfollower'));
+  }
+  public function follow(Request $request,$id){
+    $user = User::find(Auth::user()->id);
+    $user->followers()->attach($id);
+    return redirect()->back();
+}
+  public function unfollow(Request $request,$id){
+    $user = User::find(Auth::user()->id);
+    $user->followers()->detach($id);
+    return redirect()->back();
+  }
+  public function followers(Request $request,$id){
+      $user = User::find($id);
+      $isfollower = UserFollow::isfollower($id)->first();
+      return view('user.members.followers',compact('user','isfollower'));
+  }
+  public function managefollow(Request $request){
+      $user = User::find(Auth::user()->id);
+      return view('user.members.managefollower',compact('user'));
   }
 }

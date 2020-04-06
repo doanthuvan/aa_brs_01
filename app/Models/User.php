@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function books()
     {
-        return $this->belongsToMany(Book::class,'book_users','book_id','user_id')->withPivot('favorite');
+        return $this->belongsToMany(Book::class,'book_user','user_id','book_id')->withPivot('favorite','read','reading');
     }
 
     public function reviews()
@@ -67,5 +67,13 @@ class User extends Authenticatable
     public function requestNewBooks()
     {
         return $this->hasMany(RequestNewbook::class);
+    }
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follows_id')->withTimestamps();
+    }
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follows_id', 'user_id')->withTimestamps();
     }
 }

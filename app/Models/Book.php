@@ -36,7 +36,7 @@ class Book extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'book_user','book_id','user_id')->withPivot('favorite','read','reading')->withTimestamps();
     }
 
     public function reviews()

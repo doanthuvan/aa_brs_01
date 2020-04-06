@@ -1,6 +1,14 @@
-@extends('user.master')
-@section('title','Trang đăng nhập')
-@section('content')
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
 <?php //Hiển thị thông báo thành công?>
 @if ( Session::has('success') )
 	<div class="alert alert-success alert-dismissible" role="alert">
@@ -44,7 +52,7 @@
 						<fieldset>
 							<div class="row">
 								<div class="center-block">
-									<img class="profile-img" src="{{url('img/user_yellow.png')}}" alt="User">
+									<img class="profile-img" src="{{url('img/user_yellow.png')}}" alt="User" width="100">
 								</div>
 							</div>
 							<div class="row">
@@ -76,4 +84,5 @@
 		</div>
 	</div>
 </div>
-@endsection
+</body>
+</html>

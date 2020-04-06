@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserFollow extends Model
 {
-    protected $table = 'user_follows';
+    protected $table = 'followers';
     protected $fillable = [
         'user_id',
         'follower',
