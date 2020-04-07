@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\RequestNewbook;
 use App\Models\UserFollow;
+use App\Notifications\RepliedToThread;
+use App\Models\Notification;
 class UserController extends Controller
 {
   public function favoritebook(Request $request,$id){  
@@ -114,6 +116,7 @@ class UserController extends Controller
     $requestNewbook->user_id = Auth::user()->id;
     $requestNewbook->status = 0;
     $requestNewbook->save();
+    Auth::user()->notify(new RepliedToThread($requestNewbook));
     return redirect('/recommend-book')->with('status', 'Bạn đã gửi yêu cầu thành công');
   }
 }

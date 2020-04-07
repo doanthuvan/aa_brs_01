@@ -57,4 +57,40 @@ Route::get('createcomment', 'User\BookController@createcomment')->name('create-c
 Route::post('comment_review/{reviewid}', 'User\BookController@showComment')->name('comment_review');
 Route::get('recommend-book', 'User\UserController@recommend')->name('recommend-book');
 Route::post('recommend-book', 'User\UserController@sentrecommend')->name('postrecommend-book');
-
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/','Admin\AdminController@index')->name('index');
+    Route::get('/books','Admin\AdminController@showbooks')->name('showbooks');
+    Route::get('/createbook','Admin\AdminController@createbook');
+    Route::post('/createbook','Admin\AdminController@storebook');
+    Route::get('/editbook/{id}','Admin\AdminController@editbook');
+    Route::post('/editbook/{id}','Admin\AdminController@updatebook');
+    Route::post('/destroybook/{id}','Admin\AdminController@destroybook');
+    Route::get('/requestnewbooks','Admin\AdminController@showrequestnewbook')->name('requestnewbooks');
+    Route::get('/requestnewbooks/{id}','Admin\AdminController@approved')->name('approveds');
+    // Route::get('/destroyrequest/{id}','Admin\AdminController@destroyrequest');
+    Route::post('/destroyrequest/{id}','Admin\AdminController@destroyrequest');
+    Route::get('/createcategory','Admin\AdminController@createcategory');
+    Route::post('/createcategory','Admin\AdminController@storecategory');
+    Route::get('/categories','Admin\AdminController@showcategories')->name('showcategories');
+    Route::get('/editcategory/{id}','Admin\AdminController@editcategory');
+    Route::post('/editcategory/{id}','Admin\AdminController@updatecategory');
+    Route::post('/destroycategory/{id}','Admin\AdminController@destroycategory');
+    //nhà xuất bản
+    Route::get('/publishers','Admin\AdminController@showpublishers')->name('publishers');
+    Route::get('/createpublisher','Admin\AdminController@createpublisher');
+    Route::post('/createpublisher','Admin\AdminController@storepublisher');
+    Route::get('/editpublisher/{id}','Admin\AdminController@editpublisher');
+    Route::post('/editpublisher/{id}','Admin\AdminController@updatepublisher');
+    Route::post('/destroypublisher/{id}','Admin\AdminController@destroypublisher');
+    //author
+    Route::get('/authors','Admin\AdminController@showauthors')->name('authors');
+    Route::get('/createauthor','Admin\AdminController@createauthor');
+    Route::post('/createauthor','Admin\AdminController@storeauthor');
+    Route::get('/editauthor/{id}','Admin\AdminController@editauthor');
+    Route::post('/editauthor/{id}','Admin\AdminController@updateauthor');
+    Route::post('/destroyauthor/{id}','Admin\AdminController@destroyauthor');
+    Route::get('/notifications', 'Admin\AdminController@notifications');
+    Route::get('/markAsRead',function(){
+        auth()->user()->unreadNotifications->markAsRead();
+    })->name('adminnotification');
+});
