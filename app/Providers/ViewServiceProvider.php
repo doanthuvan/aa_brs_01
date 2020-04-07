@@ -5,6 +5,8 @@ use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Notification;
+use Illuminate\Support\Facades\DB;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,10 @@ class ViewServiceProvider extends ServiceProvider
             $publishers = Publisher::all();
             $view->with('categories', $categories);
             $view->with('publishers', $publishers);
+        });
+        View::composer('admin.layouts.notifications', function ($view) {
+            $notification =  DB::table('notifications')->where('type', 'LIKE', '%RepliedToThread')->get();
+             $view->with('notification', $notification);
         });
     }
 

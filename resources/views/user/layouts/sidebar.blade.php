@@ -28,6 +28,7 @@
             <li  class="list-group-item ">  <a class = "text-dark"href="#" >Quản lí tài khoản</a></li>
             <li  class="list-group-item ">  <a class = "text-dark" href="{{route('maganereview') }}" >Quản lí review </a></li>
             <li  class="list-group-item ">  <a class = "text-dark" href="{{route('managefollow') }}" >Quản lí theo dõi</a></li>
+            <li  class="list-group-item ">  <a class = "text-dark" href="{{route('managefollow') }}" >Quản lí sách</a></li>
             @endif
         </ul>
     </div>
