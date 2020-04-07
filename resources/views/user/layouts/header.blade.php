@@ -11,8 +11,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="account-area text-right">
                         <ul>
-                            <li><a href="#">Tài khoản</a></li>
-                            <li><a href="{{ action('Auth\LogoutController@getLogout') }}">Đăng xuất</a></li>
+                            <li><a href="{{route('myAcount') }}"><i class="fa fa-user"></i> Tài khoản</a></li>
+                            <li><a href="{{ route('logout') }}"><i class="fa fa-power-off">&nbsp;</i> Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>

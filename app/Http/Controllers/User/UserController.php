@@ -16,6 +16,12 @@ use App\Notifications\RepliedToThread;
 use App\Models\Notification;
 class UserController extends Controller
 {
+  public function showInfor(){ 
+    if(Auth::check()){
+      $users = Auth::user();
+      return view('user.members.acount', compact('users'));
+    }
+  }
   public function favoritebook(Request $request,$id){  
     if(Auth::check()){
       $users = Auth::user();
@@ -118,5 +124,9 @@ class UserController extends Controller
     $requestNewbook->save();
     Auth::user()->notify(new RepliedToThread($requestNewbook));
     return redirect('/recommend-book')->with('status', 'Bạn đã gửi yêu cầu thành công');
+  }
+  public function listrecommend(){
+    $requestNewbooks = DB::table('request_newbooks')->orderBy('created_at', 'DESC')->paginate(16);   
+    return view('user.book.listrecomend',compact('requestNewbooks'));
   }
 }
