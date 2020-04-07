@@ -44,7 +44,7 @@
                 @else
                     <a href="{{ route('favorite-book', ['id' => $book->id]) }}" class="btn btn-danger col-12">Yêu Thích </a>
                 @endif
-            <a href="#" class="btn btn-primary col-12">Đánh Giá </a>
+            <a href="{{ route('create-review', ['id' => $book->id]) }}" class="btn btn-primary col-12">Đánh Giá </a>
             </div>
             <div class="col" style="text-align:justify">
                 <h3>{{ $book->title }}</h3>
@@ -100,7 +100,7 @@
                                     <span class="ml-3 text-secondary">{{ $review->created_at }}</span>
                                 </p>
                                 <div class="comment_content mt-1 post-summary">
-                                <a class ="text-dark" href="#"> {{ $review->title}} </a>
+                                <a class ="text-dark" href="{{route('show-review',$review->id)}}"> {{ $review->title}} </a>
                                 <form>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
                                     <input type="hidden" name="comment_review" value="{{ route("likeIt")}} " id="likeIt">
