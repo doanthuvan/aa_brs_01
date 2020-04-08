@@ -12,7 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('forgotpassword',function(){
+    return view('emails.sendmail');
+});
+Route::get('/resetPassword/{token}', 'Auth\ResetPasswordController@resetPassword');
+Route::post('/resetPassword', 'Auth\ResetPasswordController@newPass')->name('newPass');
+Route::post('forgotpassword','Auth\ResetPasswordController@getForgotPassword');
+Route::get('/send_email', 'EmailController@sendEmailReminder');
 Route::get('/', 'User\HomeController@index')->name('home');
 //login
 Route::get('users/login', 'Auth\LoginController@getLogin')->name('getlogin');

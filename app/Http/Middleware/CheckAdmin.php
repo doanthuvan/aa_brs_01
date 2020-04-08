@@ -15,11 +15,11 @@ class CheckAdmin
      */
     
     public function handle($request, Closure $next)
-{
-    if (Auth::user()->role == 1) {
-      return $next($request);
-    }
+    {
+        if (Auth::user()->role == 1) {
+          return $next($request);
+        }
 
-      return redirect('/users/login');
-}
+          return redirect('/users/login');
+    }
 }
