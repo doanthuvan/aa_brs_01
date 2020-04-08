@@ -17,10 +17,10 @@
     </form>
     <ul class="nav menu"><i class="fa fa-accusoft"></i>
         <li><a href="#"><em class="fa fa-clone">&nbsp;</em> Dashboard</a></li>
-        <li><a href="#"><em class="fa fa-users">&nbsp;</em> Thành viên</a></li>
+        <li><a href="{{route('showusers')}}"><em class="fa fa-users">&nbsp;</em> Thành viên</a></li>
         <li><a href="{{route('showbooks')}}"><em class="fa fa-book">&nbsp;</em> Sách</a></li>
-        <li><a href="#"><em class="fa fa-bar-chart">&nbsp;</em> Danh mục</a></li>
-        <li><a href="#"><em class="fa fa-print">&nbsp;</em> Nhà xuất bản</a></li>
+        <li><a href="{{route('showusers')}}"><em class="fa fa-bar-chart">&nbsp;</em> Danh mục</a></li>
+        <li><a href="{{route('publishers')}}"><em class="fa fa-print">&nbsp;</em> Nhà xuất bản</a></li>
         <li><a href="#"><em class="fa fa-amazon">&nbsp;</em> Tác giả</a></li>
         <li><a href="#"><em class="fa fa-clone">&nbsp;</em> Yêu cầu sách mới</a></li>
         

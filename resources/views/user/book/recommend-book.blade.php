@@ -1,7 +1,6 @@
 @extends('user.master')
 @section('title', 'recommend-book')
 @section('content')
-<div class="container">
     <div class="card mt-5">
         <div class="card-header ">
             <h5 class="float-left">Đề xuất sách mới</h5>

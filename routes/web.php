@@ -21,7 +21,9 @@ Route::post('users/login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@po
 Route::get('users/register', 'Auth\RegisterController@showRegistrationForm')->name('getRegister');
 Route::post('users/register', 'Auth\RegisterController@register')->name('postRegister');
 // Đăng xuất
-Route::get('logout','Auth\LogoutController@getLogout')->name('logout');
+Route::get('logout',function(){
+   return view('user.Auth.login');
+})->name('logout');
 //book
 Route::get('book-detail/{id}', 'User\BookDetailController@index')->name('book-detail');
 Route::get('book/', 'User\BookController@index')->name('book');
@@ -44,6 +46,7 @@ Route::get('manage_follow', 'User\UserController@managefollow')->name('managefol
 Route::get('unfollow/{id}', 'User\UserController@unfollow')->name('unfollow');
 Route::get('showreview/{id}', 'User\UserController@showreview')->name('showreview');
 Route::get('follow/{id}', 'User\UserController@follow')->name('follow');
+Route::get('myAcount', 'User\UserController@showInfor')->name('myAcount');
 //review
 Route::get('create-review/{id}', 'User\BookController@createReview')->name('create-review');
 Route::post('create-review/{id}', 'User\BookController@storeReview')->name('store-review');
@@ -57,6 +60,7 @@ Route::get('createcomment', 'User\BookController@createcomment')->name('create-c
 Route::post('comment_review/{reviewid}', 'User\BookController@showComment')->name('comment_review');
 Route::get('recommend-book', 'User\UserController@recommend')->name('recommend-book');
 Route::post('recommend-book', 'User\UserController@sentrecommend')->name('postrecommend-book');
+Route::get('listrecommend-book', 'User\UserController@listrecommend')->name('listrecommend-book');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/','Admin\AdminController@index')->name('index');
     Route::get('/books','Admin\AdminController@showbooks')->name('showbooks');
@@ -67,6 +71,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/destroybook/{id}','Admin\AdminController@destroybook');
     Route::get('/requestnewbooks','Admin\AdminController@showrequestnewbook')->name('requestnewbooks');
     Route::get('/requestnewbooks/{id}','Admin\AdminController@approved')->name('approveds');
+    Route::get('/user','Admin\AdminController@showusers')->name('showusers');
+    Route::get('/edituser/{id}','Admin\AdminController@edituser');
+    Route::post('/edituser/{id}','Admin\AdminController@updateuser');
+    Route::post('/destroyuser/{id}','Admin\AdminController@destroyuser');
     // Route::get('/destroyrequest/{id}','Admin\AdminController@destroyrequest');
     Route::post('/destroyrequest/{id}','Admin\AdminController@destroyrequest');
     Route::get('/createcategory','Admin\AdminController@createcategory');
