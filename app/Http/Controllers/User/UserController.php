@@ -129,4 +129,23 @@ class UserController extends Controller
     $requestNewbooks = DB::table('request_newbooks')->orderBy('created_at', 'DESC')->paginate(16);   
     return view('user.book.listrecomend',compact('requestNewbooks'));
   }
+  public function edit()
+	{          
+    if(Auth::check()){
+    $users = Auth::user();
+    return view('user.members.edit-infor', compact('users'));
+    }
+  }
+  public function updateinfor(Request $request)
+  { 
+    $user = Auth::user();
+    $user->name = $request->get('name');
+    $user->email = $request->get('email');
+    $file = $request->filesTest;
+    if($file!=""){
+      $user->avatar= "img/user/".$file->getClientOriginalName();
+    }
+    $user->save();
+    return redirect('/edit-infor')->with('status', 'Bạn đã cập nhật thông tin thành công');
+  }
 }

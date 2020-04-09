@@ -802,6 +802,7 @@ body {
 
 footer {
     background: #222222;
+    margin-top: 225px;
 }
 
 /*----------------------------------------*/
@@ -811,6 +812,7 @@ footer {
 .footer-top-menu {
     padding: 15px 0;
     overflow: hidden;
+  
 }
 .footer-top-menu ul li {
     display: inline-block;

@@ -83,7 +83,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
-              return view("user.home");
+        return redirect('/');
     
 }     
 }

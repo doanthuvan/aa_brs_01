@@ -11,16 +11,19 @@ use App\Models\PasswordReset;
 use App\Notifications\ResetPasswordRequest;
 use App\Mail\UserEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class ResetPasswordController extends Controller
 {
-    //
+	//
+	public function forgotpassword(){
+		return view('emails.sendmail');
+	}
     public function getForgotPassword(Request $request)
     {
-    	//Tạo token và gửi đường link reset vào email nếu email tồn tại
         $result = User::where('email', $request->email)->first();
     	if($result){
     		$resetPassword = PasswordReset::firstOrCreate(['email'=>$request->email, 'token'=>Str::random(60)]);
-
     		$token =PasswordReset::where('email', $request->email)->first();
              $link = url('/resetPassword')."/".$token->token;
             Mail::to($request->email)->send(new UserEmail($link)); 
@@ -32,33 +35,37 @@ class ResetPasswordController extends Controller
     }
     public function resetPassword(Request $request)
     {
-    	// Check token valid or not
     	$result = PasswordReset::where('token', $request->token)->first();
-
     	$data['info'] = $result->token;
-
     	if($result){
     		return view('user.Auth.resetPassword', $data);
     	} else {
-    		echo 'This link is expired';
+    		echo 'Đường link đã hết hạn';
         }
     }
     public function newPass(Request $request)
     {
-    	// Check password confirm
     	if($request->password == $request->confirm){
-    		// Check email with token
     		$result = PasswordReset::where('token', $request->token)->first();
-
-    		// Update new password 
     		User::where('email', $result->email)->update(['password'=>bcrypt($request->password)]);
-
-    		// Delete token
     		PasswordReset::where('token', $request->token)->delete();
-
     		return redirect()->route('getlogin');
     	} else {
-    		echo "Password doesn't match";
+    		echo "Mật khẩu không khớp";
     	}
-    }
+	}
+	public function changepassword(){
+		return view('user.Auth.changePassword');
+	}
+	public function changepass(Request $request){
+		$oldpass = $request->oldpassword;
+		$current_password = Auth::User()->password;  
+		if(Hash::check($oldpass, $current_password)){
+			if($request->confirm==$request->password){
+				Auth::user()->password = Hash::make($request->oldpassword);
+				Auth::user()->save();
+				return redirect()->back()->with('status', 'Thay đổi mật khẩu thành công');
+		  	} else return redirect()->back()->with('error', 'Mật khẩu không khớp');
+		} else return redirect()->back()->with('error', 'Không đúng mật khẩu');
+	  }
 }

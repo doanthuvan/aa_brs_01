@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label for="name" class="col-lg-12 control-label">Tên</label>
                         <div class="col-lg-12">
-                            <input type="text" class="form-control" id="name" placeholder="Name" name="họ và tên">
+                            <input type="text" class="form-control" id="name" placeholder="tên đăng nhập" name="name">
                         </div>
                     </div>
                     <div class="form-group">
