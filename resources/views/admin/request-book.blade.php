@@ -26,11 +26,12 @@
                     @if ($requestnewbooks->isEmpty())
                         <p> Chưa có sách cân phê duyệt</p>
                     
-                    @else
+                    @else  
                     <p> Sách chưa được phê duyệt</p>
                         <table class="table">
                             <thead>
                             <tr>
+                                <th>Người đề xuất</th>
                                 <th>Tên sách</th>
                                 <th>Tác giả</th>
                                 <th>Ngày gửi</th>
@@ -38,41 +39,37 @@
                             </tr>
                             </thead>
                             <tbody>
-                           @foreach($requestnewbooks as $requestNewbook)
-                            <tr>
-                                <td>{{ $requestNewbook->book_name }}</td>
-                                <td>
-                                   {{ $requestNewbook->author }} 
+                            @foreach($requestnewbooks as $requestNewbook)
+                                <tr> 
+                                    <td>{{ $requestNewbook->user->name }}</td>
+                                    <td>{{ $requestNewbook->book_name }}</td>
+                                    <td>
+                                    {{ $requestNewbook->author }} 
+                                    </td>
+                                    <td>
+                                        {{ $requestNewbook->created_at }} 
+                                    </td>
+                                    
+                                    <td>{{ $requestNewbook->status ? 'Đã phê duyệt' : 'Chưa phê duyệt' }}</td>
+                                    <td> 
+                                        <a href="{{route('approveds',$requestNewbook->id)}}" class="btn btn-info float-left mr-2">Phê duyệt</a>
+                                        <form method="post" class="float-left" action ="{{ action('Admin\AdminController@destroyrequest', $requestNewbook->id) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <div>
+                                            <button type="submit" class="btn btn-warning col-2">Xóa</button>
+                                        </div>
+                                    </form>
                                 </td>
-                                <td>
-                                    {{ $requestNewbook->created_at }} 
-                                 </td>
-                                
-                                <td>{{ $requestNewbook->status ? 'Đã phê duyệt' : 'Chưa phê duyệt' }}</td>
-                                <td> 
-                                    <a href="{{route('approveds',$requestNewbook->id)}}" class="btn btn-info float-left mr-2">Phê duyệt</a>
-                                    <form method="post" class="float-left" action ="{{ action('Admin\AdminController@destroyrequest', $requestNewbook->id) }}">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <div>
-                                        <button type="submit" class="btn btn-warning col-2">Xóa</button>
-                                    </div>
-                                </form>
-                            </td>
-                            </tr>
-                        @endforeach
-                        
-                      
-                            </tbody>
-                            
-                           
+                                </tr>
+                                @endforeach
+                             </tbody>
                         </table>
                     @endif
                 </div>
-            </div>
-            
+            </div>    
         </div>
         <div class="container col-md-8 col-md-offset-2 mt-5">
-             <div class="card">
+            <div class="card">
                  <div class="card-header ">
                      <div class="clearfix"></div>
                  </div>
@@ -85,6 +82,7 @@
                          <table class="table">
                              <thead>
                              <tr>
+                                <th>Người đề xuất</th>
                                  <th>Tên sách</th>
                                  <th>Tác giả</th>
                                  <th>Ngày gửi</th>
@@ -93,28 +91,25 @@
                              </thead>
                              <tbody>
                             @foreach($approveds as $requestNewbook)
-                             <tr>
-                                 <td>{{ $requestNewbook->book_name }}</td>
-                                 <td>
-                                    {{ $requestNewbook->author }} 
-                                 </td>
-                                 <td>
-                                     {{ $requestNewbook->created_at }} 
-                                  </td>
-                                 
-                                 <td>{{ $requestNewbook->status ? 'Đã phê duyệt' : 'Chưa phê duyệt' }}</td>
-                             </tr>
-                         @endforeach
-                              
-                             </tbody>
-                             
-                            
+                                <tr>
+                                    <td>{{ $requestNewbook->user->name }}</td>
+                                    <td>{{ $requestNewbook->book_name }}</td>
+                                    <td>
+                                        {{ $requestNewbook->author }} 
+                                    </td>
+                                    <td>
+                                        {{ $requestNewbook->created_at }} 
+                                    </td>
+                                    
+                                    <td>{{ $requestNewbook->status ? 'Đã phê duyệt' : 'Chưa phê duyệt' }}</td>
+                                </tr>
+                            @endforeach 
+                             </tbody>    
                          </table>
                      @endif
                  </div>
-             </div>
-             
-         </div>
+            </div>
+        </div>
     </div>
-    
+</div>   
 @endsection

@@ -77,6 +77,7 @@
 							</div>
 						</fieldset>
 					</form>
+					<a  class="text-center offset-4" href="{{route('forgotpassword') }}">Quên mật khẩu</a>
 					<h4> Bạn chưa có tài khoản?Đăng kí ngay</h4>
 					<a  class="btn btn-lg btn-primary btn-block col-6 offset-3" href="{{route('getRegister') }}">Đăng kí</a>
 				</div>
