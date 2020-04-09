@@ -24,6 +24,8 @@ Route::post('users/register', 'Auth\RegisterController@register')->name('postReg
 Route::get('logout',function(){
    return view('user.Auth.login');
 })->name('logout');
+Route::get('edit-infor', 'User\UserController@edit')->name('edit-infor');
+Route::post('edit-infor', 'User\UserController@updateinfor')->name('update-infor');
 Route::get('forgotpassword','Auth\ResetPasswordController@forgotpassword')->name('forgotpassword');
 Route::get('/resetPassword/{token}', 'Auth\ResetPasswordController@resetPassword');
 Route::post('/resetPassword', 'Auth\ResetPasswordController@newPass')->name('newPass');
