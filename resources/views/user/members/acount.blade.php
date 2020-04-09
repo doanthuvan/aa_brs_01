@@ -28,16 +28,12 @@
                 </div><!-- End .module #4 -->
 
                 <div class="row">
-                <a href="{{route('listrecommend-book')}}"  class="col-4 btn btn-success">Giới thiệu sách mới</a>
-                    <a href="#" class="col-4 btn btn-primary">Chỉnh sửa thông tin</a>
-                </div>
-                <div class="row">
-                <a href="" class="col-4 btn btn-info">Đổi mật khẩu</a>
-                    <a href="#" class="col-4 btn btn-secondary">Xóa tài khoản</a>
-                   
+                    <a href="{{route('listrecommend-book')}}"  class=" btn btn-success">Giới thiệu sách mới</a>
+                    <a href="{{route('edit-infor')}}" class=" btn btn-primary">Chỉnh sửa thông tin</a>
+                    <a href="{{route('changepassword')}}" class=" btn btn-info">Đổi mật khẩu</a>
                 </div>
             </div>
-        </div><
+        </div>
     </div>
 </div>
 </div>
