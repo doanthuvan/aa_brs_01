@@ -14,6 +14,8 @@ use App\Models\RequestNewbook;
 use App\Notifications\RepliedToThread;
 use App\Models\BookUser;
 use App\Models\Notification;
+use App\Mail\RepToRequestBook;
+use Illuminate\Support\Facades\Mail;
 class AdminController extends Controller
 {
     /**
@@ -193,22 +195,24 @@ class AdminController extends Controller
 			 return redirect('/admin/books')->with('status', "Bạn đã xóa thành công");
     }
     public function showrequestnewbook(){
-        $requestnewbooks = RequestNewbook::where('status',0)->get();
+        $requestnewbooks = RequestNewbook::with('user')->where('status',0)->get();
         $approveds = RequestNewbook::where('status',1)->get();
         return view('admin.request-book', compact('requestnewbooks','approveds'));
 } 
 public function approved($id){
-    $requestnewbooks = RequestNewbook::where('id',$id)->first();
+    $requestnewbooks = RequestNewbook::with('user')->where('id',$id)->first();
     $requestnewbooks->status = 1;
     $requestnewbooks->save();
+    Mail::to($requestnewbooks->user->email)->send(new RepToRequestBook(1)); 
     return redirect(action('Admin\AdminController@showrequestnewbook'))->with('status', 'Đã phê duyệt sách');
 }
 public function destroyrequest($id)
     {
         // 
-        $requestnewbooks = RequestNewbook::where('id',$id)->first();
+        $requestnewbooks = RequestNewbook::with('user')->where('id',$id)->first();
         $requestnewbooks->delete();
-			 return redirect(action('Admin\AdminController@showrequestnewbook'))->with('status', "Bạn đã xóa thành công");
+        Mail::to($requestnewbooks->user->email)->send(new RepToRequestBook(1)); 
+		return redirect(action('Admin\AdminController@showrequestnewbook'))->with('status', "Bạn đã xóa thành công");
     }
    public function showcategories(){
     $categories = Category::all();

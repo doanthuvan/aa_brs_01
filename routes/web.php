@@ -24,6 +24,12 @@ Route::post('users/register', 'Auth\RegisterController@register')->name('postReg
 Route::get('logout',function(){
    return view('user.Auth.login');
 })->name('logout');
+Route::get('forgotpassword','Auth\ResetPasswordController@forgotpassword')->name('forgotpassword');
+Route::get('/resetPassword/{token}', 'Auth\ResetPasswordController@resetPassword');
+Route::post('/resetPassword', 'Auth\ResetPasswordController@newPass')->name('newPass');
+Route::post('forgotpassword','Auth\ResetPasswordController@getForgotPassword');
+Route::get('changepassword','Auth\ResetPasswordController@changepassword')->name('changepassword');
+Route::post('changepassword','Auth\ResetPasswordController@changepass');
 //book
 Route::get('book-detail/{id}', 'User\BookDetailController@index')->name('book-detail');
 Route::get('book/', 'User\BookController@index')->name('book');
