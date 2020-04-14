@@ -13,12 +13,16 @@ use Illuminate\Support\collection;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\VoteRequest;
 use App\Models\Comment;
+use App\Models\News;
 class BookController extends Controller
 {
      public function index()
      {
         $books = Book::with('publisher', 'rates')->orderBy('id', 'DESC')->paginate(16);
-        return view('user.book.all-book', compact('books'));
+        $news_ad = News::all();
+       
+       
+        return view('user.book.all-book', compact('books','news_ad'));
 
     }    
     public function search(Request $request){
@@ -30,7 +34,8 @@ class BookController extends Controller
         ->orWhereHas("category",function($q) use($request){
             $q->where("category_name","like", "%$request->search%");
         })->paginate(16);
-        return view('user.book.all-book', compact('books'));
+        $news_ad = News::all();
+        return view('user.book.all-book', compact('books','news_ad'));
         }
     public function bookOfPublisher(Request $request,$id){
       
@@ -152,6 +157,26 @@ class BookController extends Controller
             return "BẠN ĐÃ THÊM THÀNH CÔNG";
            
         }
+        public function store(Request $request)
+    {
+        $request->validate([
+            'post' => 'required'
+        ]);
+
+        $data = $request->except('_token');
+
+        $post = Review::create($data);
+
+        return redirect()->route('post.show', $post->id);
+    }
+        public function uploadImage(Request $request)
+    {     dd($request->file('file'));
+        $imgpath = $request->file('file')->store('post', 'public');
+        return response()->json(['location' => "/storage/$imgpath"]);
+    }
+  
+    
+    
     }
 
 

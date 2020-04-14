@@ -1,9 +1,22 @@
 @extends('user.master')
 @section('title', 'book-detail')
 @section('content')
-<div class="container">
-    <div class="container-fluid">
-        @include('user.layouts.sidebar-book')   
+@extends('user.master')
+@section('title', 'book-publisher')
+@section('content')
+<section class="mag-posts-area d-flex flex-wrap">
+    @include('user.layouts.sidebar-book')   
+    <div class="mag-posts-content mt-30 mb-30 p-30 box-shadow">
+        {{-- <div  class="section-title-5 mb-30">
+            <div class="section-heading">
+                <h5><a  class="text-dark"href = "{{route('book')}}">Sách ({{$books->count()}})</a></h5>
+            </div>
+            <form class="form-inline" action="{{ action('User\BookController@search') }}">        
+                <button type="submit" class="btn btn-warning mb-2"  >Tìm kiếm</button>
+                <input class="form-control mb-2 mr-sm-2" type="text" id = "search" name = "search" placeholder="Nhập thông tin tìm kiếm..." />
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            </form>
+        </div> --}}
         <div class="row ml-5">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                 <br><br>
@@ -31,9 +44,9 @@
                     @endif
                 @endif
                 @if( $book_user!="" && $book_user->read== 1 )
-                    <h5 class=" text-danger">Bạn đã đọc cuốn sách</h5>
+                    <h5 class=" text-dark">Bạn đã đọc cuốn sách</h5>
                 @elseif($book_user!="" && $book_user->reading == 1)
-                    <h5 class=" text-danger">Bạn đang đọc cuốn sách</h5>
+                    <h5 class=" text-dark">Bạn đang đọc cuốn sách</h5>
                 @else
                     <br>
                     <a  href="{{ route('book-read', ['id' => $book->id]) }}" class="btn btn-info col-12" >Đã đọc </a>
@@ -78,7 +91,7 @@
             </div>
             <br>
             <div class="description mt-3 ">
-                {{$book->book_content}}
+                {!! $book->book_content!!}
             </div>
         </div>
         <div class="row ml-5">
@@ -100,12 +113,18 @@
                                     <span class="ml-3 text-secondary">{{ $review->created_at }}</span>
                                 </p>
                                 <div class="comment_content mt-1 post-summary">
-                                <a class ="text-dark" href="{{route('show-review',$review->id)}}"> {{ $review->title}} </a>
-                                <form>
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
-                                    <input type="hidden" name="comment_review" value="{{ route("likeIt")}} " id="likeIt">
-                                    <a id="submitlike" class="{{$review->isLiked()?"text-primary":""}} btn fa fa-thumbs-up" onclick="likeIt('{{$review->id}}',this)"></a> <span class = "count_like">{{$review->likes()->count()}}</span>
-                                </form>
+                                <h4>{{ $review->title}}
+                              
+                                <div class="blog-comment-readmore">
+                                    <div class="blog-readmore">
+                                        <a href="{{route('show-review',$review->id)}}">Đọc thêm<i class="fa fa-long-arrow-right"></i></a>
+                                    </div>
+                                    @if($review->comments()->count()>0)
+                                    <div class="blog-com">
+                                        <h4>{{$review->comments()->count()}} bình luận</h4>
+                                    </div>
+                                    @endif
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +132,15 @@
                 </div>
             @endforeach
         </div>
+    </div>
+    @include('user.layouts.sidebar1')   
+    
+</section>
+@endsection
+
+<div class="container">
+    <div class="container-fluid">
+        
     </div>
 </div>
 @endsection

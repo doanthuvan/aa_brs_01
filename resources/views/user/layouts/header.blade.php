@@ -44,6 +44,7 @@
                             <li class="active"><a href="{{route('home')}}">Trang chủ<i class="fa fa-angle-down"></i></a> </li>
                                 <li><a href="{{route('book')}}">Sách<i class="fa fa-angle-down"></i></a> </li>
                                 <li> <a href="{{route('person',Auth::user()->id)}}">Trang cá nhân</a></li>
+                                <li><a href="{{route('news')}}">Bảng tin<i class="fa fa-angle-down"></i></a> </li>
                                 <li><a href="{{route('member')}}">Thành viên<i class="fa fa-angle-down"></i></a> </li>
                                 <li><a href="{{route('recommend-book')}}">Đề xuất sách mới<i class="fa fa-angle-down"></i></a> </li>
                                 

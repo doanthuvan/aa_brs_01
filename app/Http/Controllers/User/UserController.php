@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\BookUser;
 use App\Models\Book;
+use App\Models\News;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -120,6 +121,8 @@ class UserController extends Controller
     $requestNewbook->author = $request->get('author');
     $requestNewbook->request_content = $request->get('content');
     $requestNewbook->user_id = Auth::user()->id;
+    $file = $request->filesTest;
+    $requestNewbook->image = "img/product/".$file->getClientOriginalName();
     $requestNewbook->status = 0;
     $requestNewbook->save();
     Auth::user()->notify(new RepliedToThread($requestNewbook));
@@ -154,5 +157,17 @@ class UserController extends Controller
     }
     $user->save();
     return redirect('/edit-infor')->with('status', 'Bạn đã cập nhật thông tin thành công');
+  }
+  public function news(){
+    $news_ad = News::all();
+    
+    $news= Review::with('user', 'comments', 'book')->orderBy('created_at', 'DESC')->paginate(16);
+    return view('user.news',compact('news','news_ad'));
+   
+  }
+  public function newsdetail(Request $request,$id){
+    $news = News::find($id);
+    $news_ad = News::all();
+    return view('user.news-detail',compact('news','news_ad'));
   }
 }

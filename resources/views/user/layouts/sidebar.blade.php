@@ -1,35 +1,28 @@
-<div class="sidebar col-3">
-    <br><br>
-    <div class="avatar">
-        <img src="{{url($user->avatar)}}"/>
-    </div>
-    <div class="module">
-        <h3 class="module__name">{{$user->name}}</h3>
-        <br>
-        <div class="module__date">
-            <span><i class="fa fa-calendar"></i>Ngày đăng kí : {{$user->created_at}}</span>
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <div class="profile-sidebar">
+        <div class="profile-userpic">
+            <img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
         </div>
-        <div class="module__emaik">
-          <h4>Email : {{$user->email}}</h4>
+        <div class="profile-usertitle">
+            <div class="profile-usertitle-name">Admin</div>
+            <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
         </div>
-        <ul class="list-group list-group-flush">
-            <a  class = "text-dark" href="{{route('followers',$user->id)}}"> Số người theo dõi :  {{$user->followings->count()}}<a>
-             @if($user->id!=Auth::user()->id)
-                @if($isfollower=="")
-                   
-                    <li  class="list-group-item "><a href="{{route('follow',$user->id)}}" class="btn btn-light"><i class="fa fa-plus-square"></i>  Theo dõi</a></li>
-                @else
-                    <li  class="list-group-item "><a href="{{route('unfollow',$user->id)}}" class="btn btn-light"><i class="fa fa-minus-circle"></i>  Bỏ theo dõi</a></li>
-                    <li  class="list-group-item ">  <a  class = "text-dark"href="{{route('showreview',$user->id)}}" >Review sách</a></li>
-                    @endif
-            @else
-            <li  class="list-group-item ">  <a class = #" >Nhật kí hoạt động</a></li>
-       
-            <li  class="list-group-item ">  <a class = "text-dark"href="#" >Quản lí tài khoản</a></li>
-            <li  class="list-group-item ">  <a class = "text-dark" href="{{route('maganereview') }}" >Quản lí review </a></li>
-            <li  class="list-group-item ">  <a class = "text-dark" href="{{route('managefollow') }}" >Quản lí theo dõi</a></li>
-            <li  class="list-group-item ">  <a class = "text-dark" href="{{route('managefollow') }}" >Quản lí sách</a></li>
-            @endif
-        </ul>
+        <div class="clear"></div>
     </div>
-    </div>
+    <div class="divider"></div>
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu"><i class="fa fa-accusoft"></i>
+        <li><a href="#"><em class="fa fa-clone">&nbsp;</em> Dashboard</a></li>
+        <li><a href="{{route('showusers')}}"><em class="fa fa-users">&nbsp;</em> Thành viên</a></li>
+        <li><a href="{{route('showbooks')}}"><em class="fa fa-book">&nbsp;</em> Sách</a></li>
+        <li><a href="{{route('showusers')}}"><em class="fa fa-bar-chart">&nbsp;</em> Danh mục</a></li>
+        <li><a href="{{route('publishers')}}"><em class="fa fa-print">&nbsp;</em> Nhà xuất bản</a></li>
+        <li><a href="#"><em class="fa fa-amazon">&nbsp;</em> Tác giả</a></li>
+        <li><a href="{{route('requestnewbooks')}}"><em class="fa fa-clone">&nbsp;</em> Yêu cầu sách mới</a></li>
+        <li><a href="{{ route('logout') }}"><em class="fa fa-power-off">&nbsp;</em> Đăng xuất</a></li>
+    </ul>
+</div>

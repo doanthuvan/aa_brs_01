@@ -24,6 +24,8 @@ Route::post('users/register', 'Auth\RegisterController@register')->name('postReg
 Route::get('logout',function(){
    return view('user.Auth.login');
 })->name('logout');
+Route::get('news','User\UserController@news')->name('news');
+Route::get('news-detail/{id}','User\UserController@newsdetail')->name('newsdetail');
 Route::get('edit-infor', 'User\UserController@edit')->name('edit-infor');
 Route::post('edit-infor', 'User\UserController@updateinfor')->name('update-infor');
 Route::get('forgotpassword','Auth\ResetPasswordController@forgotpassword')->name('forgotpassword');
@@ -105,6 +107,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/editauthor/{id}','Admin\AdminController@editauthor');
     Route::post('/editauthor/{id}','Admin\AdminController@updateauthor');
     Route::post('/destroyauthor/{id}','Admin\AdminController@destroyauthor');
+    Route::get('/shownew','Admin\AdminController@shownews')->name('new');
+    Route::get('/createnew','Admin\AdminController@createnew');
+    Route::post('/createnew','Admin\AdminController@storenew');
     Route::get('/notifications', 'Admin\AdminController@notifications');
     Route::get('/markAsRead',function(){
         auth()->user()->unreadNotifications->markAsRead();
